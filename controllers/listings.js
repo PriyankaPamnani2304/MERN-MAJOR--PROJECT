@@ -1,13 +1,8 @@
 const Listing=require("../models/listing..js");
 const{ListingSchema}=require("../schema.js")
 module.exports.index=async (req,res,next)=>{
-    try{
     let r= await Listing.find({});
     res.render("./listing/lists.ejs",{r});
-    }
-   catch(err){
-    next(err);
-}
 }
 module.exports.show=async(req,res)=>{
     let {id}=req.params;

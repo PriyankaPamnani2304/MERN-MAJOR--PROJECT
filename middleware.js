@@ -4,7 +4,7 @@ module.exports.logedin=(req,res,next)=>{
     if(!req.isAuthenticated()){
         req.session.redirecturl=req.originalUrl
         req.flash("error","you must be logged in to create/edit/delete  listing")
-        res.redirect("/login")
+        return res.redirect("/login")
     }
     next()
 }

@@ -75,9 +75,9 @@ app.use((req,res,next)=>{
     res.locals.curuser=req.user
     next();
 })
-app.get("/",(req,res)=>{
-    res.send("working")
-})
+// app.get("/",(req,res)=>{
+//     res.send("working")
+// })
 const mongoose=require("mongoose");
 main()
 .then(()=>{

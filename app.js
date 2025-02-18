@@ -14,7 +14,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate)
 app.use(express.static(path.join(__dirname,"/public")))
 const wrapAsync=require("./utils/wrapAsync.js")
-const Expresserror=require("./utils/expresserror.js")
+const expresserror=require("./utils/expresserror.js")
 const Listing=require("./models/listing..js");
 const User=require("./models/user.js")
 const passport=require("passport")
@@ -28,9 +28,6 @@ const users=require("./routes/users.js")
 const session=require("express-session")
 const MongoStore=require("connect-mongo")
 const flash=require("connect-flash")
-app.listen(port,()=>{
-    console.log(`listening on  ${port}`)
-})
 let dburl=process.env.ATLASDB_URL;
 const store=MongoStore.create({
     mongoUrl:dburl,
@@ -81,13 +78,16 @@ async function main(){
     await mongoose.connect(process.env.ATLASDB_URL);
 }
 app.use("/listings",listingss);
-app.use("/listing/:id/review",reviewss)
-app.use("/",users)
+app.use("/listing/:id/review",reviewss);
+app.use("/",users);
 
-// app.use("*",(req,res,next)=>{
-//     next(new Expresserror(404,"Page not found"));
-//     })
-app.use("*",(err,req,res,next)=>{
+app.all("*",(req,res,next)=>{
+    next(new expresserror(404,"Page not found"));
+    });
+app.use((err,req,res,next)=>{
         let{status,message}=err;
         res.status(status).render("./listing/error.ejs",{err});
-    })
+    });
+app.listen(port,()=>{
+        console.log(`listening on  ${port}`)
+    });

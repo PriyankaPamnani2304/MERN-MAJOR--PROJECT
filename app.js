@@ -61,14 +61,7 @@ passport.use(new Localstratergy(User.authenticate()))
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// app.get("/adduser",async(req,res)=>{
-//  let fakeuser=new User({
-//     email:"abc@gmail.com",
-//     username:"delta-student"
-//  })
-//   let ret=await User.register(fakeuser,"helloworld")
-//   res.send(ret)
-//  })
+
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success")
     res.locals.error=req.flash("error")
@@ -94,6 +87,6 @@ app.use((err,req,res,next)=>{
     let{statuscode=500,message}=err
     res.status(statuscode).render("./listing/error.ejs",{message})
 })
-// app.use("*",(req,res,next)=>{
-//     next(new Expresserror(500,"page not found!"))
-// })
+//  app.use("*",(req,res,next)=>{
+//    next(new Expresserror(500,"page not found!"))
+//  })

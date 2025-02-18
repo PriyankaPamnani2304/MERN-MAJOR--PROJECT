@@ -87,6 +87,6 @@ app.use((err,req,res,next)=>{
     let{statuscode=500,message}=err
     res.status(statuscode).render("./listing/error.ejs",{message})
 })
-//  app.use("*",(req,res,next)=>{
-//    next(new Expresserror(500,"page not found!"))
-//  })
+ app.use("*",(req,res,next)=>{
+   next(new Expresserror(500,"page not found!"))
+ })

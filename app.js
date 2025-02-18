@@ -75,9 +75,7 @@ app.use((req,res,next)=>{
     res.locals.curuser=req.user
     next();
 })
-app.get("/",(req,res)=>{
-    res.redirect("/listings")
-})
+
 const mongoose=require("mongoose");
 main()
 .then(()=>{
